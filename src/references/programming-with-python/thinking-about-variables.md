@@ -185,6 +185,12 @@ Again, the exact identifier values may differ on your own computer. The values o
 
 In the second group of output, where `a` is `2` and `b` is still `1`, we can observe that now `id(a)` and `id(2)` have the same value, which is the same as `id(2)` in the first group, while `id(b)` and `id(1)` still have the same value they had at the beginning.
 
+The following diagram shows these two situations.
+
+![Fig 4. How a and b change their values](figures/python-variables-number-a-b-2.png)
+
+*Fig 4. How a and b change their values.*
+
 This tells us something very important about how values and variables work together. Let's review our original explanation for `b = a`. We said that the variable `b` got a copy of the value in variable `a`. But from the `id` output, we see this is not true. They are the _same_ value. `a` and `b` do not have different copies of the value `1`. They refer to the same `1`. The same `1` as every other `1` in the program, since `id(1)` returns the same identifier.
 
 Our explanation for `a = a + 1` is also slightly off. We see that the resulting identifier in `a` is the same value as `id(2)`. So `a` did _not_ directly contain the value `1`, which was updated to the value `2`. Instead, Python looked up the value that `a` referred to (1), added 1 to it (2), and stored a reference to the value `2` in `a`. We know this because now `id(a)` and `id(2)` are the same.
