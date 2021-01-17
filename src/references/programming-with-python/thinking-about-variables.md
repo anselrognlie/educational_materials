@@ -32,6 +32,7 @@ We can explain the behavior of this code as follows:
 We can think of each of the variables as a box that get updated with each of the steps that we described.
 
 ![previous steps presented visually](figures/python-variables-number-a-b-1.png)
+
 *Fig 1. a gets 1. b gets a. a gets a + 1.*
 
 So is that it? Is that all there is to working with variables?
