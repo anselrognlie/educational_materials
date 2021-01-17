@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="../../styles/programming-with-python.css" />
-
 # Thinking About Variables
 
 This lesson assumes the reader has already seen simple Python programs, including assignment statements using numeric, string, and list types. They should also have seen simple function definitions, such as a function to sum two values, and the use of the `pass` keyword.

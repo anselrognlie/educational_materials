@@ -1,9 +1,0 @@
-img + br + em {
-  display: block;
-  line-height: .75em;
-  font-size: .75em;
-}
-
-img {
-  border: solid 1px black;
-}
