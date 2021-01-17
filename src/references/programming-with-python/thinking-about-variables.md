@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../styles/programming-with-python.css" />
+<link rel="stylesheet" href="../../styles/programming-with-python.css" />
 
 # Thinking About Variables
 
