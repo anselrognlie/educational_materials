@@ -15,6 +15,8 @@ print(f'a: {a}')
 print(f'b: {b}')
 ```
 
+*Ex 1. Incrementing a number.*
+
 Running this code produces the following output.
 
 ```text
@@ -49,6 +51,8 @@ a[0] = a[0] + 1  # add 1 to the value in a[0] and store the result back in a[0]
 print(f'a: {a}')
 print(f'b: {b}')
 ```
+
+*Ex 2. Incrementing a number in a list.*
 
 We might guess this code will produce the following:
 
@@ -116,6 +120,8 @@ def does_nothing():
 print(f'id(does_nothing()): {id(does_nothing())}')  # the same result as id(None)
 ```
 
+*Ex 3. Some outputs from the `id` function.*
+
 The result will resemble the following:
 
 ```text
@@ -161,6 +167,8 @@ print(f'id(1): {id(1)}')
 print(f'id(2): {id(2)}')
 ```
 
+*Ex 4. Inspecting the identifiers when a and b store numbers.*
+
 This time, there are a lot more `print` statements, but we're still doing the same steps we did in the beginning. We're just checking on the values and their identifiers as we update the variables.
 
 When we run this code, we will see something like this:
@@ -187,7 +195,7 @@ In the second group of output, where `a` is `2` and `b` is still `1`, we can obs
 
 The following diagram shows these two situations.
 
-![Fig 4. How a and b change their values](figures/python-variables-number-a-b-2.png)
+![Fig 4. How a and b change their values.](figures/python-variables-number-a-b-2.png)
 
 *Fig 4. How a and b change their values.*
 
@@ -197,7 +205,113 @@ Our explanation for `a = a + 1` is also slightly off. We see that the resulting 
 
 So now we might conclude that Python variables don't actually store values. Instead they store references to values that we can identify using the `id` function. We can think of the identifier as a unique address of the value inside the program. When we need to see what value there is in a variable, we check the address stored in the variable, and then go look at what is stored at that address.
 
-## Identifiers and Lists
+## Python Variables Are References
+
+As figure 4 shows, our variables hold the address of some value which is stored elsewhere in memory. We say that our variables hold _references_ to values. Some languages refer to these variables as _pointers_, and we might hear that term applied to Python variables as well. For now, we can treat them as synonymous terms.
+
+This setup has some very useful benefits. For instance, arguments to functions can be passed very efficiently, no matter how large they are.
+
+But there are also some potential pitfalls of which we need to be careful, especially around the use of references and complex data. Let's take another look at our list example, applying our newfound understanding of references.
+
+## References and Lists
+
+As we did with exploring identifiers, references, variables and numbers in our first example, let's add similar logging to our list example.
+
+```python
+a = [1]
+b = a
+
+print(f'a: {a}')
+print(f'b: {b}')
+print(f'id(a): {id(a)}')
+print(f'id(b): {id(b)}')
+print(f'id(a[0]): {id(a[0])}')
+print(f'id(b[0]): {id(b[0])}')
+print(f'id(1): {id(1)}')
+print()
+
+a[0] = a[0] + 1
+
+print(f'a: {a}')
+print(f'b: {b}')
+print(f'id(a): {id(a)}')
+print(f'id(b): {id(b)}')
+print(f'id(a[0]): {id(a[0])}')
+print(f'id(b[0]): {id(b[0])}')
+print(f'id(2): {id(2)}')
+```
+
+*Ex 5. Inspecting the identifiers when a and b store a list.*
+
+We are outputting not just the identifier for the variables referencing the lists, but also the contents. A sample run might look like the following.
+
+```text
+a: [1]
+b: [1]
+id(a): 4462945152
+id(b): 4462945152
+id(a[0]): 4460698048
+id(b[0]): 4460698048
+id(1): 4460698048
+
+a: [2]
+b: [2]
+id(a): 4462945152
+id(b): 4462945152
+id(a[0]): 4460698080
+id(b[0]): 4460698080
+id(2): 4460698080
+```
+
+Again, the values you see on your own computer will differ. The point to notice is that both before and after the assignment to `a[0]`, both `a` and `b` are referring to the same list! And as before, we see that the first entry in that list starts as reference to the value `1`, and after the assignment to `a[0]`, "both" lists have their first entries updated to refer to the value `2`.
+
+We can see this in the following diagram.
+
+![Fig 5. a and b refer to the same list.](figures/python-variables-list-a-b-2.png)
+
+*Fig 5. a and b refer to the same list.*
+
+Note the diagram does not show the reference in position 0 of the list which refers to `1`—at address `4460698048`—and then `2`—at address `4460698080`. It works exactly as our original variable example worked.
+
+Instead, notice that when `a` is assigned to `b`, just as with the number example, `b` gets the same reference that `a` had. It follows then that a change to position 0 in one list will have the same effect on the other list. This is not because there are two copies that are somehow entangled with one another. It's because there is only a single list, and two variables are referring to that single list!
+
+## Making Copies
+
+References are great at reducing the amount of memory our programs have to use, and for making data defined in one part of the program available in other parts. But what if we really did want to be able to modify `a` without affecting `b`. In those cases, we must make a copy of the data value itself.
+
+Some data types, like numbers and strings, are said to be _immutable_ in Python. This means that once they have been created, they cannot change. When we act on them, such as adding to a number, or concatenating strings, the original value remains unchanged, and a new value is created. If we store the result of those operations, as we saw when incrementing `a`, the variable reference is set to the new value. Any other variable that referred to the original value will continue to do so, as `b` did in example 1.
+
+Let's try modifying example 2 so that modifying the value in `a` does _not_ affect the value in `b`. Python provides a function called `copy` that can be used on lists as follows:
+
+```python
+a = [1]
+b = a.copy()  # make a copy of a
+a[0] = a[0] + 1
+
+print(f'a: {a}')
+print(f'b: {b}')
+```
+
+*Ex 6. Severing the reference relationship between a and b.*
+
+This time when we run our program, we get the following output.
+
+```text
+a: [2]
+b: [1]
+```
+
+We see that `a` was updated without modifying `b`, as we wanted. The `copy` function created a new list holding the same references as the original list, so that when we modified position 0 in `a`, it was a difference list from the value referred to by `b`.
+
+>Try modifying example 6 to output the identifiers of the values referred to by variables `a` and `b`. Draw a diagram like figure 5 to show how the references are related.
+
+For this simple case, where the list contained simple numbers, the single call to `copy` was sufficient. But keep in mind that the contents of a list are themselves references, and the `copy` function doesn't make a new value for each of those references when they are copied into the new list. So while the list returned from `copy` is a different list, all the references it contains are shared with the original list. We call a copy that works like this a _shallow copy_.
+
+Just as happened with the references to `a` and `b` in example 2, this can lead to unanticipated outcomes if we expected the values to be distinct in each list.
+
+Sometimes we have to do additional work to ensure that the values after a copy are set up as we would like. We call a copy that does more that just copying the references a _deep copy_. Deep copies are more expensive than shallow copies both from the standpoint of the time to perform the copy, and the amount of memory used after the copy, but if we need to completely separate values, making a deep copy might be unavoidable!
+
+>What if position 0 in `a` had itself held a reference to a list, such as `a = [[1]]`? Think about how we might write code to perform a deep copy so that `b[0]` does not refer to the same list as `a[0]`. Draw a diagram to help confirm your understanding, and use the `id` function to check your implementation.
 
 ## Identifiers and Numbers
 
@@ -206,4 +320,5 @@ _why do some numbers get the same id?_
 ## References
 
 [1] [id(object)](https://docs.python.org/3/library/functions.html#id). Python Built-in Functions. https://docs.python.org/3/library/functions.html#id.
+
 [2] [Variables in Python](https://realpython.com/python-variables/). Real Python. https://realpython.com/python-variables.
