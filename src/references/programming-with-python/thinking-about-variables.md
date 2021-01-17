@@ -129,11 +129,15 @@ id(does_nothing()): 4494621808
 
 The exact identifier values may differ on your own computer, but notice that the values for `id(None)` and `id(does_nothing())` are the same, since both result in a value of `None`. The values for `id(2)`, `id(1 + 1)`, and `id(addem(1, 1)` are also all the same, since they all result in a value of `2`. `id(1)` is different from the others, since it is the only call using a value of `1`.
 
-Notice in this example that none of the values we passed to `id` were stored in variables. The 'adresses'
+![Fig 3. `id` returns the _address_ of a value.](figures/python-variables-id-1.png)
+
+*Fig 3. `id` returns the _address_ of a value.*
+
+Notice in this example that none of the values we passed to `id` were stored in variables. The _addresses_ returned by `id` are the addresses of the values themselves. Each can be thought of as a label for that value, similar to our original idea about how values might be like boxes with a label on them.
 
 ### Back to `a` and `b`
 
-Let's return to our original example and see how it works.
+Let's return to our original example and use our new understanding of `id` to see if we can get a better understanding of how it works.
 
 ```python
 a = 1
