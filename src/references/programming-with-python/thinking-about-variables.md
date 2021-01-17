@@ -31,9 +31,9 @@ We can explain the behavior of this code as follows:
 
 We can think of each of the variables as a box that get updated with each of the steps that we described.
 
-![previous steps presented visually](figures/python-variables-number-a-b-1.png)
+![Fig 1. a gets 1. b gets a. a gets a + 1. Or does it?](figures/python-variables-number-a-b-1.png)
 
-*Fig 1. a gets 1. b gets a. a gets a + 1.*
+*Fig 1. a gets 1. b gets a. a gets a + 1. Or does it?*
 
 So is that it? Is that all there is to working with variables?
 
@@ -73,6 +73,12 @@ We might try to explain this code as before.
 3. `a[0] = a[0] + 1` takes the value stored in position 0 of the list stored in `a` (1), adds `1` to it (2) and stores that result back into position 0 of the list stored in `a`, replacing the previous value.
 4. We print out the the results.
 
+Using our box model from before, this would resemble the following:
+
+![Fig 2. a gets [1]. b gets a. a[0] gets a[0] + 1. Maybe?](figures/python-variables-list-a-b-1.png)
+
+*Fig 2. a gets [1]. b gets a. a[0] gets a[0] + 1. Maybe?*
+
 By that explanation, our first guess about what result we would see should have been correct. But instead, we see that the addition in step 2 seemed to affect both `a` and `b` at the same time.
 
 ## Checking Whether Variables Can Refer to the Same Value
@@ -81,7 +87,9 @@ How might it be that modifying a value in `a` also modifies a value in `b`. What
 
 ### The `id` Function
 
-Every value in Python is tracked by a unique identifier. We can ask Python what any value's identifier is by using the built in `id` function. We can think of this identifier as the address of that value in the program.
+Every value in Python is tracked by a unique identifier. We can ask Python what any value's identifier is by using the built in `id` function. We can think of this identifier as the _address_ of that value in the program.
+
+>In the standard Python interpreter, these identifiers are more than just _like_ the address of the value, they actually _are_ the address of the value, stored in the memory of the computer!
 
 The `id` function can be called on any value, such as `None`, `1`, `2`, `""`, `"dog"`, `"cat"`, `[]`, `{}`, really anything we can think of. Recalling our knowledge of how Python evaluates expressions, any expression that produces a value will also work, since the resulting value is what the `id` function will receive.
 
@@ -120,6 +128,8 @@ id(does_nothing()): 4494621808
 ```
 
 The exact identifier values may differ on your own computer, but notice that the values for `id(None)` and `id(does_nothing())` are the same, since both result in a value of `None`. The values for `id(2)`, `id(1 + 1)`, and `id(addem(1, 1)` are also all the same, since they all result in a value of `2`. `id(1)` is different from the others, since it is the only call using a value of `1`.
+
+Notice in this example that none of the values we passed to `id` were stored in variables. The 'adresses'
 
 ### Back to `a` and `b`
 
