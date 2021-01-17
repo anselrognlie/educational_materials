@@ -1,4 +1,6 @@
-# Anatomy of a Variable
+<link rel="stylesheet" href="../styles/programming-with-python.css" />
+
+# Thinking About Variables
 
 This lesson assumes the reader has already seen simple Python programs, including assignment statements using numeric, string, and list types. They should also have seen simple function definitions, such as a function to sum two values, and the use of the `pass` keyword.
 
@@ -28,6 +30,11 @@ We can explain the behavior of this code as follows:
 2. `b = a` copies the value stored in `a` into the variable `b`.
 3. `a = a + 1` takes the value stored in `a` (1), adds `1` to it (2) and stores that result back into `a`, replacing the previous value.
 4. We print out the the results.
+
+We can think of each of the variables as a box that get updated with each of the steps that we described.
+
+![previous steps presented visually](figures/python-variables-number-a-b-1.png)
+*Fig 1. a gets 1. b gets a. a gets a + 1.*
 
 So is that it? Is that all there is to working with variables?
 
@@ -75,9 +82,9 @@ How might it be that modifying a value in `a` also modifies a value in `b`. What
 
 ### The `id` Function
 
-Every value in Python is tracked by a unique identifier. We can ask Python what the identifier is for any value by using the built in `id` function.
+Every value in Python is tracked by a unique identifier. We can ask Python what any value's identifier is by using the built in `id` function. We can think of this identifier as the address of that value in the program.
 
-The `id` function can be called on any value, such as `None`, `1`, `2`, `""`, `"dog"`, `"cat"`, `[]`, `{}`, really just about anything we can think of. Recalling our knowledge of how Python evaluates expressions, any expression that produces a value will also work, since the resulting value is what the `id` function will receive.
+The `id` function can be called on any value, such as `None`, `1`, `2`, `""`, `"dog"`, `"cat"`, `[]`, `{}`, really anything we can think of. Recalling our knowledge of how Python evaluates expressions, any expression that produces a value will also work, since the resulting value is what the `id` function will receive.
 
 The full details of the [`id` function](https://docs.python.org/3/library/functions.html#id) are available in the official Python documentation.
 
@@ -173,6 +180,11 @@ So now we might conclude that Python variables don't actually store values. Inst
 
 ## Identifiers and Lists
 
+## Identifiers and Numbers
+
+_why do some numbers get the same id?_
+
 ## References
 
-[1] [id(object)—Python Built-in Functions](https://docs.python.org/3/library/functions.html#id). https://docs.python.org/3/library/functions.html#id.
+[1] [id(object)](https://docs.python.org/3/library/functions.html#id). Python Built-in Functions. https://docs.python.org/3/library/functions.html#id.
+[2] [Variables in Python](https://realpython.com/python-variables/). Real Python. https://realpython.com/python-variables.
