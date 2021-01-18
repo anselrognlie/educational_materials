@@ -315,7 +315,27 @@ Sometimes we have to do additional work to ensure that the values after a copy a
 
 ## Identifiers and Numbers
 
-_why do some numbers get the same id?_
+In our investigation of values and references, we saw that no matter how may times we called `id` on a particular number value, it gave us back the same identifier. While this was convenient to help us understand how Python stores variables, we should _not_ rely on this behavior.
+
+Why is this?
+
+Think about all the different numbers that Python can represent. That's _a lot_ of numbers! Certainly more numbers than there is memory in a computer. Consider that a typical computer in early 2021 might have around 8GB to 16GB of memory. That results in the machine having the ability to store anywhere from 8 to 16 billion distinct values. But in Python, we can have numbers far larger than 16 billion. If every number had to have a unique identifier then Python could attempt to guarantee this up to 16 billion, but what about 16 billion and one?
+
+Instead, Python generally only creates as many numbers as are needed at any one time. Based on additional logic built into Python, it may attempt to keep some of them around to use for later. As an optimization, it also creates values for small, commonly used numbers ahead of time.
+
+That's why we saw that when `a` and `b` were set to `1` or `2`, they wound up referring to the same value. But if both were set to say, `1000`, there's no guarantee they would both have the same value. Python might decide to make a number value of `1000` and point `a` to that value, then make another number value of `1000` and point `b` to that value.
+
+The following arrangement would be perfectly valid.
+
+![Fig 6. a and b refer to different memory that happen to have equal values.](figures/python-variables-number-a-b-3.png)
+
+*Fig 6. a and b refer to different memory that happen to have equal values.*
+
+Generally, we don't have to worry about this situation. Our use of `id` in this lesson has been more to gain a better understanding of how Python approaches variables in our code than as a set of useful code techniques. But it is worth pointing out that one of the behaviors we used in our initial investigation is not necessarily applicable in the general case.
+
+## Conclusion
+
+
 
 ## References
 
