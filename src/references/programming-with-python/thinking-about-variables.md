@@ -31,7 +31,7 @@ We can explain the behavior of this code as follows:
 3. `a = a + 1` takes the value stored in `a` (1), adds `1` to it (2) and stores that result back into `a`, replacing the previous value.
 4. We print out the the results.
 
-We can think of each of the variables as a box that get updated with each of the steps that we described.
+We can think of each of the variables as a box that gets updated with each of the steps that we described.
 
 ![Fig 1. a gets 1. b gets a. a gets a + 1. Or does it?](figures/python-variables-number-a-b-1.png)
 
@@ -83,19 +83,21 @@ Using our box model from before, this would resemble the following:
 
 *Fig 2. a gets [1]. b gets a. a[0] gets a[0] + 1. Maybe?*
 
-By that explanation, our first guess about what result we would see should have been correct. But instead, we see that the addition in step 2 seemed to affect both `a` and `b` at the same time.
+By that explanation, our first guess about what result we would see should have been correct. But instead, we saw that the addition in step 2 seemed to affect both `a` and `b` at the same time.
 
 ## Checking Whether Variables Can Refer to the Same Value
 
-How might it be that modifying a value in `a` also modifies a value in `b`. What if `a` and `b` actually refer to the same value? In this case, the same list. Is there a way we can confirm this?
+Let's consider how it might be that modifying a value in `a` also modifies a value in `b`.
+
+What if `a` and `b` actually refer to the same value? In this case, that would mean that `a` and `b` refer to the same list. Is there a way we can confirm this?
 
 ### The `id` Function
 
 Every value in Python is tracked by a unique identifier. We can ask Python what any value's identifier is by using the built in `id` function. We can think of this identifier as the _address_ of that value in the program.
 
->In the standard Python interpreter, these identifiers are more than just _like_ the address of the value, they actually _are_ the address of the value, stored in the memory of the computer!
+>In the standard Python interpreter, these identifiers are more than just _like_ the address of the value, they actually _are_ the address of the value, indicating where it's stored in the memory of the computer!
 
-The `id` function can be called on any value, such as `None`, `1`, `2`, `""`, `"dog"`, `"cat"`, `[]`, `{}`, really anything we can think of. Recalling our knowledge of how Python evaluates expressions, any expression that produces a value will also work, since the resulting value is what the `id` function will receive.
+The `id` function can be called on any value, such as `None`, `1`, `2`, `""`, `"dog"`, `"cat"`, `[]`, `{}`, really anything we can think of. Applying our knowledge of how Python evaluates expressions, any expression that produces a value will also work, since the resulting value is what the `id` function will receive.
 
 The full details of the [`id` function](https://docs.python.org/3/library/functions.html#id) are available in the official Python documentation.
 
@@ -133,17 +135,17 @@ id(addem(1, 1)): 4494764512
 id(does_nothing()): 4494621808
 ```
 
-The exact identifier values may differ on your own computer, but notice that the values for `id(None)` and `id(does_nothing())` are the same, since both result in a value of `None`. The values for `id(2)`, `id(1 + 1)`, and `id(addem(1, 1)` are also all the same, since they all result in a value of `2`. `id(1)` is different from the others, since it is the only call using a value of `1`.
+The exact identifier values may differ on your own computer, but notice that the values for `id(None)` and `id(does_nothing())` are the same since both result in a value of `None`. The values for `id(2)`, `id(1 + 1)`, and `id(addem(1, 1)` are also all the same since they all result in a value of `2`. `id(1)` is different from the others, since it is the only call using a value of `1`.
 
 ![Fig 3. `id` returns the _address_ of a value.](figures/python-variables-id-1.png)
 
 *Fig 3. `id` returns the _address_ of a value.*
 
-Notice in this example that none of the values we passed to `id` were stored in variables. The _addresses_ returned by `id` are the addresses of the values themselves. Each can be thought of as a label for that value, similar to our original idea about how values might be like boxes with a label on them.
+Notice in this example that none of the values we passed to `id` were stored in variables. The _addresses_ returned by `id` are the addresses of the values themselves. Each can be thought of as a label for that value, similar to our original idea about how values might be like boxes with a label on them. However, this time we have data to support that idea.
 
 ### Back to `a` and `b`
 
-Let's return to our original example and use our new understanding of `id` to see if we can get a better understanding of how it works.
+Let's return to example 1 and use our new understanding of `id` to see if we can get a better idea of how it works.
 
 ```python
 a = 1
@@ -189,7 +191,7 @@ id(1): 4439181760
 id(2): 4439181792
 ```
 
-Again, the exact identifier values may differ on your own computer. The values of `id(1)` and `id(2)` may even differ from the previous sample. In fact, they will probably be different every time the program runs! But we can observe in the first group of output, where `a` and `b` both have the value `1`, that `id(a)`, `id(b)`, and `id(1)` all have the same identifier. `id(2)` is different.
+Again, the exact identifier values may differ on your own computer. The values of `id(1)` and `id(2)` may even differ from the previous sample. In fact, they will probably be different every time the program runs! But we can observe in the first group of output, where `a` and `b` both have the value `1`, that `id(a)`, `id(b)`, and `id(1)` all have the same identifier, while `id(2)` is different.
 
 In the second group of output, where `a` is `2` and `b` is still `1`, we can observe that now `id(a)` and `id(2)` have the same value, which is the same as `id(2)` in the first group, while `id(b)` and `id(1)` still have the same value they had at the beginning.
 
@@ -199,19 +201,19 @@ The following diagram shows these two situations.
 
 *Fig 4. How a and b change their values.*
 
-This tells us something very important about how values and variables work together. Let's review our original explanation for `b = a`. We said that the variable `b` got a copy of the value in variable `a`. But from the `id` output, we see this is not true. They are the _same_ value. `a` and `b` do not have different copies of the value `1`. They refer to the same `1`. The same `1` as every other `1` in the program, since `id(1)` returns the same identifier.
+This tells us something very important about how values and variables work together. Let's review our original explanation for `b = a`. We thought that the variable `b` got a copy of the value in variable `a`. But from the `id` output, we see this is not true. They are the _same_ value. `a` and `b` do not have different copies of the value `1`. They refer to the same `1`.
 
-Our explanation for `a = a + 1` is also slightly off. We see that the resulting identifier in `a` is the same value as `id(2)`. So `a` did _not_ directly contain the value `1`, which was updated to the value `2`. Instead, Python looked up the value that `a` referred to (1), added 1 to it (2), and stored a reference to the value `2` in `a`. We know this because now `id(a)` and `id(2)` are the same.
+Our explanation for `a = a + 1` is also slightly off. We see that the resulting identifier in `a` is the same value as `id(2)`. So `a` did _not_ directly contain the value `1`, and then get updated to the value `2`. Instead, Python looked up the value that `a` referred to (1), added 1 to it (2), and stored a reference to the value `2` in `a`. We know this because now `id(a)` and `id(2)` are the same, which differ from the previous value of `id(a)`.
 
-So now we might conclude that Python variables don't actually store values. Instead they store references to values that we can identify using the `id` function. We can think of the identifier as a unique address of the value inside the program. When we need to see what value there is in a variable, we check the address stored in the variable, and then go look at what is stored at that address.
+So now we might conclude that Python variables don't actually store values. Instead they store references to values that we can identify using the `id` function. We can think of the identifier as a unique address of the value inside the program. When we need to see to which value a variable refers, we check the address stored in the variable, and then go check what's stored at that address.
 
 ## Python Variables Are References
 
 As figure 4 shows, our variables hold the address of some value which is stored elsewhere in memory. We say that our variables hold _references_ to values. Some languages refer to these variables as _pointers_, and we might hear that term applied to Python variables as well. For now, we can treat them as synonymous terms.
 
-This setup has some very useful benefits. For instance, arguments to functions can be passed very efficiently, no matter how large they are.
+This setup has some very useful benefits. For instance, arguments to functions can be passed very efficiently, no matter how large or complex they are.
 
-But there are also some potential pitfalls of which we need to be careful, especially around the use of references and complex data. Let's take another look at our list example, applying our newfound understanding of references.
+But there are also some potential pitfalls of which we need to be careful, especially around the use of references and complex data. Let's take another look at example 2, applying our newfound understanding of references.
 
 ## References and Lists
 
@@ -263,7 +265,7 @@ id(b[0]): 4460698080
 id(2): 4460698080
 ```
 
-Again, the values you see on your own computer will differ. The point to notice is that both before and after the assignment to `a[0]`, both `a` and `b` are referring to the same list! And as before, we see that the first entry in that list starts as reference to the value `1`, and after the assignment to `a[0]`, "both" lists have their first entries updated to refer to the value `2`.
+Again, the values you see on your own computer will differ. The point to notice is that both before and after the assignment to `a[0]`, both `a` and `b` are referring to the same list! And as before, we see that the first entry in that list starts as a reference to the value `1`, and after the assignment to `a[0]`, "both" lists have their first entries updated to refer to the value `2`.
 
 We can see this in the following diagram.
 
@@ -271,13 +273,13 @@ We can see this in the following diagram.
 
 *Fig 5. a and b refer to the same list.*
 
-Note the diagram does not show the reference in position 0 of the list which refers to `1`—at address `4460698048`—and then `2`—at address `4460698080`. It works exactly as our original variable example worked.
+The diagram does not show the reference in position 0 of the list which refers to `1`—at address `4460698048`—and then `2`—at address `4460698080`. It works exactly the same as our original variable example worked.
 
-Instead, notice that when `a` is assigned to `b`, just as with the number example, `b` gets the same reference that `a` had. It follows then that a change to position 0 in one list will have the same effect on the other list. This is not because there are two copies that are somehow entangled with one another. It's because there is only a single list, and two variables are referring to that single list!
+Notice that when `a` is assigned to `b`, just as with the number example, `b` gets the same reference that `a` had. It follows then that a change to position 0 in one list will have the same effect on the other list. This is not because there are two copies that are somehow entangled with one another. It's because there is only a single list, and both variables are referring to that single list!
 
 ## Making Copies
 
-References are great at reducing the amount of memory our programs have to use, and for making data defined in one part of the program available in other parts. But what if we really did want to be able to modify `a` without affecting `b`. In those cases, we must make a copy of the data value itself.
+References are great at reducing the amount of memory our programs have to use, and for making data defined in one part of the program available in other parts. But what if we really did want to be able to modify `a` without affecting `b`. In that case, we must make a copy of the data value itself.
 
 Some data types, like numbers and strings, are said to be _immutable_ in Python. This means that once they have been created, they cannot change. When we act on them, such as adding to a number, or concatenating strings, the original value remains unchanged, and a new value is created. If we store the result of those operations, as we saw when incrementing `a`, the variable reference is set to the new value. Any other variable that referred to the original value will continue to do so, as `b` did in example 1.
 
@@ -301,15 +303,15 @@ a: [2]
 b: [1]
 ```
 
-We see that `a` was updated without modifying `b`, as we wanted. The `copy` function created a new list holding the same references as the original list, so that when we modified position 0 in `a`, it was a difference list from the value referred to by `b`.
+We see that `a` was updated without modifying `b`, as we wanted. The `copy` function created a new list holding the same references as the original list, so that when we modified position 0 in `a`, it was a different list from the value referred to by `b`.
 
 >Try modifying example 6 to output the identifiers of the values referred to by variables `a` and `b`. Draw a diagram like figure 5 to show how the references are related.
 
-For this simple case, where the list contained simple numbers, the single call to `copy` was sufficient. But keep in mind that the contents of a list are themselves references, and the `copy` function doesn't make a new value for each of those references when they are copied into the new list. So while the list returned from `copy` is a different list, all the references it contains are shared with the original list. We call a copy that works like this a _shallow copy_.
+For this simple case, where the list contained basic numbers, the single call to `copy` was sufficient. But keep in mind that the contents of a list are themselves references, and the `copy` function doesn't make a new value for each of those references when they are copied into the new list. So while the list returned from `copy` is a different list, all the references it contains are shared with the original list. We call a copy that works like this a _shallow copy_.
 
 Just as happened with the references to `a` and `b` in example 2, this can lead to unanticipated outcomes if we expected the values to be distinct in each list.
 
-Sometimes we have to do additional work to ensure that the values after a copy are set up as we would like. We call a copy that does more that just copying the references a _deep copy_. Deep copies are more expensive than shallow copies both from the standpoint of the time to perform the copy, and the amount of memory used after the copy, but if we need to completely separate values, making a deep copy might be unavoidable!
+Sometimes we do extra work to ensure that the values after a copy are _not_ the same references as those in the original list. We call such a copy a _deep copy_. Deep copies are more expensive than shallow copies both from the standpoint of the time to perform the copy, and the amount of memory used after the copy, but if we need to completely separate the original and new values, making a deep copy might be unavoidable!
 
 >What if position 0 in `a` had itself held a reference to a list, such as `a = [[1]]`? Think about how we might write code to perform a deep copy so that `b[0]` does not refer to the same list as `a[0]`. Draw a diagram to help confirm your understanding, and use the `id` function to check your implementation.
 
@@ -319,18 +321,17 @@ In our investigation of values and references, we saw that no matter how may tim
 
 Why is this?
 
-Think about all the different numbers that Python can represent. That's _a lot_ of numbers! Certainly more numbers than there is memory in a computer. Consider that a typical computer in early 2021 might have around 8GB to 16GB of memory. That results in the machine having the ability to store anywhere from 8 to 16 billion distinct values at once. But in Python, we can have numbers far larger than 16 billion. If every number had to have a unique identifier then Python could attempt to guarantee this up to 16 billion, but what about 16 billion and one?
+Think about all the different numbers that Python can represent. That's _a lot_ of numbers! Certainly more numbers than there is memory in a computer. Consider that a typical computer in early 2021 might have around 8GB to 16GB of memory. That results in the machine having the ability to store anywhere from 8 to 16 billion distinct values at once. But in Python, we can have numbers far larger than 16 billion. If every number had to have a unique identifier then Python might be able to guarantee this up to 16 billion, but what about 16 billion and one?
 
 Instead, Python generally only creates as many numbers as are needed at any one time. Based on additional logic built into Python, it may attempt to keep some of them around to use for later. As an optimization, it also creates values for small, commonly used numbers ahead of time.
 
-Of course, when we assigned `a` directly to `b`, the result was that both `a` and `b` referred to the same value. But similarly, that's why we saw that when `a` and `b` were each set to `1` independently, they wound up referring to the same value.
+When we assigned `a` directly to `b`, the result was that both `a` and `b` referred to the same value, as we would expect. But similarly, that's why when `a` and `b` were each set to `1` independently, they also wound up referring to the same value.
 
 ![Fig 6. Arrangement of a and b after assigning 1 to both a and b.](figures/python-variables-number-a-b-4.png)
 
 *Fig 6. Arrangement of a and b after assigning 1 to both a and b.*
 
-
-But if both were set to say, `1000`, there's no guarantee they would both refer to the same value. Python might decide to make a number value of `1000` and point `a` to that value, then make another number value of `1000` and point `b` to that value.
+But if both were set to say, `1000`, there's no guarantee they would both refer to the same value. Python might decide to make a number value of `1000` and point `a` to that value, then make another number value of `1000` and point `b` to that other value.
 
 The following arrangement would be perfectly valid.
 
@@ -338,7 +339,7 @@ The following arrangement would be perfectly valid.
 
 *Fig 7. a and b refer to different numbers that happen to have equal values.*
 
-Generally, we don't need to concern ourselves with this situation. Our use of `id` in this lesson has been more to gain a better understanding of how Python approaches variables in our code than as a recommendation for code we might write on a regular basis. But it is worth pointing out that one of the specific behaviors we used in our initial investigation is not necessarily applicable in the general case.
+Generally, we don't need to concern ourselves with this situation. Our use of `id` in this lesson has been more to gain a better understanding of how Python manages variables in our code than as an example of code we might write on a regular basis. But it is worth pointing out that one of the specific behaviors we used in our initial investigation is not necessarily applicable in the general case.
 
 ## Conclusion
 
@@ -348,9 +349,9 @@ We hypothesized that multiple variables might be able to refer to the same value
 
 We saw that a more useful model for thinking about variables is to separate the value from the variable, and imagine the variable as holding an address that refers to the value. We saw that multiple variables can refer to the same value, explaining our previous observation.
 
-We considered what to do if we _do_ want separate instances of an initially shared value that don't affect one another. And we thought about a special case with numbers that helped us understand how variables work, but which we shouldn't depend upon in general code.
+We considered what to do if we _do_ want separate instances of the same initial value that can be modified independently. And we thought about a special case with numbers that initially helped us with our variable investigation, but which we shouldn't depend upon in general code.
 
-Variables and values are essential to writing code. Not all programming languages represent these concepts in the same way as Python, but we can now be more confident in our understanding of variables when writing Python code. Finally, we have some new tools to draw on if we need to investigate unexpected behavior in the future!
+Variables and values are essential to writing code. Not all programming languages represent these concepts in the same way as Python. But we can now be more confident in our understanding of variables when writing Python code. Finally, we have some new tools to draw on if we need to investigate unexpected behavior in the future!
 
 ## References
 
