@@ -273,7 +273,7 @@ We can see this in the following diagram.
 
 *Fig 5. a and b refer to the same list.*
 
-The diagram does not show the reference in position 0 of the list which refers to `1`—at address `4460698048`—and then `2`—at address `4460698080`. It works exactly the same as our original variable example worked.
+For brevity, the diagram does not show the reference in position 0 of the list which refers to `1`—at address `4460698048`—and then `2`—at address `4460698080`. It works exactly the same as our original variable example worked.
 
 Notice that when `a` is assigned to `b`, just as with the number example, `b` gets the same reference that `a` had. It follows then that a change to position 0 in one list will have the same effect on the other list. This is not because there are two copies that are somehow entangled with one another. It's because there is only a single list, and both variables are referring to that single list!
 
