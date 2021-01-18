@@ -319,7 +319,7 @@ In our investigation of values and references, we saw that no matter how may tim
 
 Why is this?
 
-Think about all the different numbers that Python can represent. That's _a lot_ of numbers! Certainly more numbers than there is memory in a computer. Consider that a typical computer in early 2021 might have around 8GB to 16GB of memory. That results in the machine having the ability to store anywhere from 8 to 16 billion distinct values. But in Python, we can have numbers far larger than 16 billion. If every number had to have a unique identifier then Python could attempt to guarantee this up to 16 billion, but what about 16 billion and one?
+Think about all the different numbers that Python can represent. That's _a lot_ of numbers! Certainly more numbers than there is memory in a computer. Consider that a typical computer in early 2021 might have around 8GB to 16GB of memory. That results in the machine having the ability to store anywhere from 8 to 16 billion distinct values at once. But in Python, we can have numbers far larger than 16 billion. If every number had to have a unique identifier then Python could attempt to guarantee this up to 16 billion, but what about 16 billion and one?
 
 Instead, Python generally only creates as many numbers as are needed at any one time. Based on additional logic built into Python, it may attempt to keep some of them around to use for later. As an optimization, it also creates values for small, commonly used numbers ahead of time.
 
@@ -331,11 +331,19 @@ The following arrangement would be perfectly valid.
 
 *Fig 6. a and b refer to different memory that happen to have equal values.*
 
-Generally, we don't have to worry about this situation. Our use of `id` in this lesson has been more to gain a better understanding of how Python approaches variables in our code than as a set of useful code techniques. But it is worth pointing out that one of the behaviors we used in our initial investigation is not necessarily applicable in the general case.
+Generally, we don't have to worry about this situation. Our use of `id` in this lesson has been more to gain a better understanding of how Python approaches variables in our code than as a recommendation for code we might write on a regular basis. But it is worth pointing out that one of the behaviors we used in our initial investigation is not necessarily applicable in the general case.
 
 ## Conclusion
 
+Python variables are a little more complicated than may at first seem. We saw that the basic model of a variable storing a value directly was insufficient to explain behavior we observed in our code.
 
+We hypothesized that multiple variables might be able to refer to the same value, and examined the built-in `id` function to explore this relationship.
+
+We saw that a more useful model for thinking about variables is to separate the value from the variable, and imagine the variable as holding an address that refers to the value. We saw that multiple variables can refer to the same value, explaining our previous observation.
+
+We considered what to do if we _do_ want separate instances of an initially shared value that don't affect one another. And we thought about a special case with numbers that helped us understand how variables work, but which we shouldn't depend upon in general code.
+
+Variables and values are essential to writing code. Not all programming languages represent these concepts in the same way as Python, but we can now be more confident in our understanding of variables when writing Python code. Finally, we have some new tools to draw on if we need to investigate unexpected behavior in the future!
 
 ## References
 
