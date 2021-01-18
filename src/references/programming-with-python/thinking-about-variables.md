@@ -323,19 +323,26 @@ Think about all the different numbers that Python can represent. That's _a lot_ 
 
 Instead, Python generally only creates as many numbers as are needed at any one time. Based on additional logic built into Python, it may attempt to keep some of them around to use for later. As an optimization, it also creates values for small, commonly used numbers ahead of time.
 
-That's why we saw that when `a` and `b` were set to `1` or `2`, they wound up referring to the same value. But if both were set to say, `1000`, there's no guarantee they would both have the same value. Python might decide to make a number value of `1000` and point `a` to that value, then make another number value of `1000` and point `b` to that value.
+Of course, when we assigned `a` directly to `b`, the result was that both `a` and `b` referred to the same value. But similarly, that's why we saw that when `a` and `b` were each set to `1` independently, they wound up referring to the same value.
+
+![Fig 6. Arrangement of a and b after assigning 1 to both a and b.](figures/python-variables-number-a-b-4.png)
+
+*Fig 6. Arrangement of a and b after assigning 1 to both a and b.*
+
+
+But if both were set to say, `1000`, there's no guarantee they would both refer to the same value. Python might decide to make a number value of `1000` and point `a` to that value, then make another number value of `1000` and point `b` to that value.
 
 The following arrangement would be perfectly valid.
 
-![Fig 6. a and b refer to different memory that happen to have equal values.](figures/python-variables-number-a-b-3.png)
+![Fig 7. a and b refer to different numbers that happen to have equal values.](figures/python-variables-number-a-b-3.png)
 
-*Fig 6. a and b refer to different memory that happen to have equal values.*
+*Fig 7. a and b refer to different numbers that happen to have equal values.*
 
-Generally, we don't have to worry about this situation. Our use of `id` in this lesson has been more to gain a better understanding of how Python approaches variables in our code than as a recommendation for code we might write on a regular basis. But it is worth pointing out that one of the behaviors we used in our initial investigation is not necessarily applicable in the general case.
+Generally, we don't need to concern ourselves with this situation. Our use of `id` in this lesson has been more to gain a better understanding of how Python approaches variables in our code than as a recommendation for code we might write on a regular basis. But it is worth pointing out that one of the specific behaviors we used in our initial investigation is not necessarily applicable in the general case.
 
 ## Conclusion
 
-Python variables are a little more complicated than may at first seem. We saw that the basic model of a variable storing a value directly was insufficient to explain behavior we observed in our code.
+Python variables are a little more complicated than they may at first seem. We saw that the basic model of a variable storing a value directly was insufficient to explain behavior we observed in our code.
 
 We hypothesized that multiple variables might be able to refer to the same value, and examined the built-in `id` function to explore this relationship.
 
