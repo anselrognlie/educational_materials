@@ -355,6 +355,6 @@ Variables and values are essential to writing code. Not all programming language
 
 ## References
 
-[1] [id(object)](https://docs.python.org/3/library/functions.html#id). Python Built-in Functions. https://docs.python.org/3/library/functions.html#id.
+[1] [id(object)](https://docs.python.org/3/library/functions.html#id). Python Built-in Functions. [https://docs.python.org/3/library/functions.html#id](https://docs.python.org/3/library/functions.html#id).
 
-[2] [Variables in Python](https://realpython.com/python-variables/). Real Python. https://realpython.com/python-variables.
+[2] [Variables in Python](https://realpython.com/python-variables/). Real Python. [https://realpython.com/python-variables](https://realpython.com/python-variables/).
